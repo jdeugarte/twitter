@@ -5,17 +5,18 @@
 <h1>{{$user->username}}</h1>
 
 @if(Auth::user()->username == $user->username)
+	<div class="car"></div>
 	<form class="form-horizontal" role="form" method="POST" action="{{ url('/tweet/store') }}">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
-		<input type="input" name="tweet">
+		<textarea name='tweet' id="tweet" maxlength="140"></textarea>
 		<input type="submit" value="post" name="post">
 	</form>
 
 @else
 	@if(!Auth::user()->following_user($user))
-		<a class='.ajax_buttonF' href="/user/follow/{{$user->id}}">FOLLOW</a>
+		<a class='.ajax_buttonF' id='{{$user->id}}' href="/user/follow/{{$user->id}}">FOLLOW</a>
 	@else
-		<a class='.ajax_buttonU' href="/user/unfollow/{{$user->id}}">UNFOLLOW</a>
+		<a class='.ajax_buttonU' id='{{$user->id}}' href="/user/unfollow/{{$user->id}}">UNFOLLOW</a>
 	@endif
 @endif
 
@@ -25,3 +26,19 @@
 
 	
 @stop
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.car').html('140');
+		$('#tweet').keypress(function(){
+			c= 140 - $('#tweet').val().length;
+			$('.car').html(c);
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	
+</script>
