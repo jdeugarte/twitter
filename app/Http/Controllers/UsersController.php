@@ -51,18 +51,6 @@ class UsersController extends Controller {
 		return view('users.show', compact('user'));
 	}
 
-	public function follow($idToFollow)
-	{
-		Auth::user()->follow(User::find($idToFollow));
-		return redirect()->back();
-	}
-
-	public function unfollow($idToFollow)
-	{
-		Auth::user()->unfollow(User::find($idToFollow));
-		return redirect()->back();
-	}
-
 	/**
 	 * Show the form for editing the specified resource.
 	 *

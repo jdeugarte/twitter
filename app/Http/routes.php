@@ -13,7 +13,6 @@
 
 Route::get('/', 'HomeController@index');
 
-Route::get('home', 'HomeController@index');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -26,9 +25,6 @@ Route::get('/{username}', array(
 
 
 Route::post('/tweet/store', 'TweetsController@store');
-
-Route::get('/user/follow/{idToFollow}', 'UsersController@follow');
-Route::get('/user/unfollow/{idToUnfollow}', 'UsersController@unfollow');
 
 Route::filter('csrf', function()
 {

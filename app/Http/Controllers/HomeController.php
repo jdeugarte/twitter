@@ -34,20 +34,7 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		$tweets = Auth::user()->tweets;
-		foreach (Auth::user()->following() as $cuate)
-		{
-			foreach ($cuate->tweets as $tweet)
-			{
-				array_push($tweets, $tweet);
-			}
-		}
-
-		$data = array(
-		    'tweets'  => $tweets
-		);
-	
-		return view('home')->with($data);
+		return view('home');
 	}
 
 }
