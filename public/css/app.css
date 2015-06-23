@@ -6231,3 +6231,11 @@ label,
 .checkbox label {
   font-weight: 300;
 }
+
+
+#fondo{
+  background-image: url('/background.png');
+  height: 652px;
+  margin-top: -20px;
+  padding-top: 150px;
+}
