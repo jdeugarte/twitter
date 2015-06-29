@@ -27,14 +27,14 @@
 
 							@if(Auth::user()->username != $user->username)
 								@if(Auth::user()->is_following($user->id))
-									 <a href={{"/unfollow/".$user->id}}>Unfollow</a>
+									 <a href={{"/unfollow/".$user->id}} class="btn btn-danger">Unfollow</a>
 								@else
-									<a href={{"/follow/".$user->id}}>Follow</a>
+									<a href={{"/follow/".$user->id}} class="btn btn-success">Follow</a>
 								@endif
 							@endif
 
 								@foreach ($user->tweets as $tweet)
-									<h3>You tweeted:</h3>
+									<h3><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>
 									<p>{{$tweet->tweet}}</p>
 									<p>{{$tweet->created_at}}</p>
 									<hr class="divider">

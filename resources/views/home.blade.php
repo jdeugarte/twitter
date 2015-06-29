@@ -8,7 +8,7 @@
 					<div class="panel-heading text-center">Newsfeed</div>
 						<div class="panel-body">
 							@foreach ($user->tweets as $tweet)
-								<h3>You tweeted:</h3>
+								<h3><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>
 								<p>{{$tweet->tweet}}</p>
 								<p>{{$tweet->created_at}}</p>
 								<hr class="divider">
@@ -17,7 +17,7 @@
 
 							@foreach ($user->following() as $id)
 								@foreach (App\User::find($id)->tweets as $t)
-									<h3><a href={{"/".$t->user->username}}> @.{{$t->user->username}}</a> tweeted:</h3>
+									<h3><a href={{"/".$t->user->username}}> {{$t->user->username}}</a> tweeted:</h3>
 									<p>{{$t->tweet}}</p>
 									<p>{{$t->created_at}}</p>
 									<hr class="divider">
