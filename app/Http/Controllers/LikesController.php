@@ -4,11 +4,12 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\Tweet;
+use App\Like;
 use Auth;
-use App\Http\Requests\TweetRequest;
+use App\Http\Requests\LikeRequest;
 
-class TweetsController extends Controller {
+
+class LikesController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -27,12 +28,7 @@ class TweetsController extends Controller {
 	 */
 	public function create()
 	{
-		return view('tweets.create');
-	}
-
-	public function like()
-	{
-		
+		//
 	}
 
 	/**
@@ -40,23 +36,12 @@ class TweetsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(TweetRequest $request)
+	public function store(LikeRequest $request)
 	{
 		$input = $request->all();
-		$tweet = new Tweet($input);
-		Auth::user()->tweets()->save($tweet);
+		$like = new Like($input);
+		$like->save();
 		return redirect()->back();
-	}
-
-	public function repost($tweet_id,$user_id)
-	{
-		$post = Tweet::find($tweet_id);
-		$repost= new Tweet();
-		$repost->tweet_id=$tweet_id;
-		$repost->tweet=$post->tweet;
-		$repost->user_id=$user_id;
-		$repost->save();
-		return redirect('/'.Auth::user()->username);
 	}
 
 	/**
@@ -98,9 +83,11 @@ class TweetsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($user_id,$tweet_id)
 	{
-		//
+		$like = Like::where('user_id',$user_id)->where('tweet_id',$tweet_id);
+		$like->delete();
+		return redirect()->back();
 	}
 
 }
