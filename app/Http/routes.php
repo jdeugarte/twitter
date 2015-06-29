@@ -13,6 +13,9 @@
 
 Route::get('/', 'HomeController@index');
 
+Route::get('/follow/{user_id}', 'UsersController@follow');
+
+Route::get('/unfollow/{user_id}', 'UsersController@unfollow');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

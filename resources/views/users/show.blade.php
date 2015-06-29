@@ -13,6 +13,14 @@
 	</form>
 @endif
 
+@if(Auth::user()->username != $user->username)
+	@if(Auth::user()->is_following($user->id))
+		 <a href={{"/unfollow/".$user->id}}>Unfollow</a>
+	@else
+		<a href={{"/follow/".$user->id}}>Follow</a>
+	@endif
+@endif
+
 @foreach ($user->tweets as $tweet)
 	<p>{{$tweet->tweet}}</p>
 @endforeach

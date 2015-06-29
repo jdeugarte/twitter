@@ -37,4 +37,47 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasMany('App\Tweet');
 	}
 
+	public function follow($user_id){
+		$follow = new Follow;
+		$follow->follower_id = $this->id;
+		$follow->followed_user_id = $user_id;
+		$follow->save();
+	}
+
+	public function unfollow($user_id){
+		$follow = Follow::where('follower_id',$this->id);
+		$follow = $follow->where('followed_user_id',$user_id);
+		$follow->delete();
+	}
+
+	public function is_following($user_id){
+		$res = false;
+		if (in_array($user_id, $this->following())!=false) {
+			$res = true;
+		}
+		return $res;
+	}
+
+	public function following(){
+		$follows = Follow::all();
+		$user_ids_array = [];
+		foreach ($follows as $f) {
+			if ($f->follower_id==$this->id) {
+				$user_ids_array[] = $f->followed_user_id;		
+			}
+		}
+		return $user_ids_array;
+	}
+
+	public function followed_by(){
+		$follows = Follow::all();
+		$user_ids_array = [];;
+		foreach ($follows as $f) {
+			if ($f->followed_user_id==$this->id) {
+				$user_ids_array[] = $f->follower_id;
+			}
+		}
+		return $user_ids_array;
+	}
+
 }
