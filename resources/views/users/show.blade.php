@@ -37,7 +37,7 @@
 								@endif
 							@endif
 
-								@foreach ($user->tweets as $tweet)
+								@foreach ($user->tweets->reverse() as $tweet)
 									<h3><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>
 									<p>{{$tweet->tweet}}</p>
 									<p>{{$tweet->created_at}}</p>
