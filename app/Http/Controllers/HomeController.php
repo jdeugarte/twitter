@@ -38,4 +38,14 @@ class HomeController extends Controller {
 		return view('home',compact('user'));
 	}
 
+	public function following(){
+		$user = Auth::user();
+		return view('following',compact('user'));
+	}
+
+	public function followers(){
+		$user = Auth::user();
+		return view('followers',compact('user'));
+	}
+
 }

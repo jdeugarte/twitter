@@ -7,10 +7,12 @@
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-success">
-					<div class="panel-heading text-center">My Tweets</div>
+					<div class="panel-heading text-center">My Profile</div>
 						<div class="panel-body">
-							@if(Auth::user()->username == $user->username)
 
+						<h4 class="text-center">Posts: {{$user->tweets->count()}} &nbsp&nbsp&nbsp Followers: {{sizeof($user->followed_by())}} &nbsp&nbsp&nbsp Following: {{sizeof($user->following())}}</h4>
+						
+							@if(Auth::user()->username == $user->username)
 								<form role="form" method="POST" action="{{ url('/tweet/store') }}">
 									<input type="hidden" name="_token" value="{{ csrf_token() }}">
 									
@@ -21,9 +23,11 @@
 									<input type="submit" value="Post" name="post" class="btn btn-success">
 								</form>
 								<hr class="divider">
-
-								
 							@endif
+
+							<hr class="divider">
+							<h3 class="text-center">My Tweets</h3>
+							<hr class="divider">
 
 							@if(Auth::user()->username != $user->username)
 								@if(Auth::user()->is_following($user->id))
