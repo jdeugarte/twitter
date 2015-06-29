@@ -32,6 +32,12 @@ Route::get('/following', 'HomeController@following');
 
 Route::get('/followers', 'HomeController@followers');
 
+Route::get('imageUploadForm', 'ImageController@upload' );
+
+Route::post('imageUploadForm', 'ImageController@store' );
+
+Route::get('showLists', 'ImageController@show' );
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
