@@ -36,7 +36,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	{
 		return $this->hasMany('App\Tweet');
 	}
+	/*
+	public function following_users_tweets(){
+		$users_ids = $this->following();
+		foreach ($user_ids_array as $id) {
+			$user = User::find($id);
+		}
+	}
+	*/
 
+	//Function to follow a user
 	public function follow($user_id){
 		$follow = new Follow;
 		$follow->follower_id = $this->id;
@@ -44,12 +53,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		$follow->save();
 	}
 
+	//Function to unfollow a user
 	public function unfollow($user_id){
 		$follow = Follow::where('follower_id',$this->id);
 		$follow = $follow->where('followed_user_id',$user_id);
 		$follow->delete();
 	}
 
+	//Function to know if a user is following a user
 	public function is_following($user_id){
 		$res = false;
 		if (in_array($user_id, $this->following())!=false) {
@@ -58,6 +69,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $res;
 	}
 
+	//Function that returns an array of all the ids of the users being followed
 	public function following(){
 		$follows = Follow::all();
 		$user_ids_array = [];
@@ -69,6 +81,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $user_ids_array;
 	}
 
+	//Function that returns an array of all the users that are following
 	public function followed_by(){
 		$follows = Follow::all();
 		$user_ids_array = [];;

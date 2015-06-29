@@ -21,10 +21,11 @@
 	@endif
 @endif
 
-@foreach ($user->tweets as $tweet)
-	<p>{{$tweet->tweet}}</p>
-@endforeach
-
+	@foreach ($user->tweets as $tweet)
+		<h2>{{$tweet->user->username}} tweeted:</h2>
+		<p>{{$tweet->tweet}}</p>
+		<p>{{$tweet->created_at}}</p>
+	@endforeach
 	
 @stop
 
