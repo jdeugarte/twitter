@@ -7,7 +7,7 @@ class Tweet extends Model {
 	protected $fillable = ['tweet'];
 	public function user()
 	{
-		return User::find($this->user_id);
+		return $this->belongsTo('App\User');
 	}
 
 	public function likes()

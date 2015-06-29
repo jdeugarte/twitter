@@ -6239,3 +6239,11 @@ label,
   margin-top: -20px;
   padding-top: 150px;
 }
+
+#fondo2{
+  background-image: url('/background2.jpg');
+  height: auto;
+  min-height: 652px;
+  margin-top: -20px;
+  padding-top: 50px;
+}

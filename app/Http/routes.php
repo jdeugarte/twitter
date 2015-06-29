@@ -13,6 +13,7 @@
 
 Route::get('/', 'HomeController@index');
 
+
 Route::get('/repost/{tweet_id}/{user_id}', 'TweetsController@repost', array(
 		'uses'=>'TweetsController@repost'
 	));
@@ -23,7 +24,13 @@ Route::get('/unlike/{user_id}/{tweet_id}', 'LikesController@destroy', array(
 		'uses'=>'LikesController@destroy'
 	));
 
+Route::get('/follow/{user_id}', 'UsersController@follow');
 
+Route::get('/unfollow/{user_id}', 'UsersController@unfollow');
+
+Route::get('/following', 'HomeController@following');
+
+Route::get('/followers', 'HomeController@followers');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

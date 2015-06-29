@@ -47,7 +47,7 @@ class UsersController extends Controller {
 	 */
 	public function show($username)
 	{
-		$user = User::where('username' , '=', $username)->first();
+		$user = User::where('username',$username)->first();
 		return view('users.show', compact('user'));
 	}
 
@@ -82,6 +82,18 @@ class UsersController extends Controller {
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function follow($user_id){
+		Auth::user()->follow($user_id);
+		$user = User::find($user_id);
+		return view('users.show', compact('user'));
+	}
+
+	public function unfollow($user_id){
+		Auth::user()->unfollow($user_id);
+		$user = User::find($user_id);
+		return view('users.show', compact('user'));
 	}
 
 }
