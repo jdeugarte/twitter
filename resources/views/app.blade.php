@@ -37,6 +37,8 @@
 				<a class="navbar-brand" href={{"/".Auth::user()->username}}>Profile</a>
 				<a class="navbar-brand" href="/following">Following</a>
 				<a class="navbar-brand" href="/followers">Followers</a>
+				<a class="navbar-brand" href="/notifications">Notifications</a>
+
 				@endif
 			</div>
 

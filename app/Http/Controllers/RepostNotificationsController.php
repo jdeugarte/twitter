@@ -4,13 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\Tweet;
-use Auth;
-use App\Http\Requests\TweetRequest;
-use App\RepostNotification;
 
-
-class TweetsController extends Controller {
+class RepostNotificationsController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -29,12 +24,7 @@ class TweetsController extends Controller {
 	 */
 	public function create()
 	{
-		return view('tweets.create');
-	}
-
-	public function like()
-	{
-		
+		//
 	}
 
 	/**
@@ -42,28 +32,9 @@ class TweetsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(TweetRequest $request)
+	public function store()
 	{
-		$input = $request->all();
-		$tweet = new Tweet($input);
-		Auth::user()->tweets()->save($tweet);
-		return redirect()->back();
-	}
-
-	public function repost($tweet_id,$user_id)
-	{
-		$post = Tweet::find($tweet_id);
-		$repost= new Tweet();
-		$repost->tweet_id=$tweet_id;
-		$repost->tweet=$post->tweet;
-		$repost->user_id=$user_id;
-		$repost->save();
-
-		$notification = new RepostNotification;
-		$notification->user_id=Tweet::find($tweet_id)->user->id;
-		$notification->tweet_id=$tweet_id;
-		$notification->save();
-		return redirect('/'.Auth::user()->username);
+		//
 	}
 
 	/**

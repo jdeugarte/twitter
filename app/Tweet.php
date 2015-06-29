@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Like;
+use App\RepostNotification;
 class Tweet extends Model {
 	protected $fillable = ['tweet'];
 	public function user()
