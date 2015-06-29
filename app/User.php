@@ -6,6 +6,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use App\Follow;
+use App\Image;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
@@ -36,6 +37,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	{
 		return $this->hasMany('App\Tweet');
 	}
+
+	public function image()
+	{
+		return $this->hasOne('App\Image');
+	}
+
 	/*
 	public function following_users_tweets(){
 		$users_ids = $this->following();
