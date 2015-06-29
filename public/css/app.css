@@ -6247,3 +6247,9 @@ label,
   margin-top: -20px;
   padding-top: 50px;
 }
+
+.clear{
+    clear: both;
+    height: 0;
+    overflow: hidden;;
+}

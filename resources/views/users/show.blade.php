@@ -49,13 +49,14 @@
 											<input type="hidden" name="tweet_id" value={{ $tweet->id }}>
 											<input type="submit" value="like" class="btn btn-success">
 										</form>
-
+			
 									@else
 										<a class='btn btn-danger' href="/unlike/{{Auth::user()->id}}/{{$tweet->id}}">Unlike</a>
 									@endif
 									@if(Auth::user()->username != $user->username)
 										<a class='btn btn-primary' href="/repost/{{$tweet->id}}/{{Auth::user()->id}}">Repost</a>
 									@endif
+									<br>
 									<hr class="divider">
 								@endforeach
 						</div>
