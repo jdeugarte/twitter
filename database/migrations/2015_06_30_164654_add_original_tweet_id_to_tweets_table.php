@@ -14,7 +14,7 @@ class AddOriginalTweetIdToTweetsTable extends Migration {
 	{
 		Schema::table('tweets', function($table)
 		{
-			$table->integer('original_tweet_id')->references('id')->on('twitter')->ondelete('cascade');;
+			$table->integer('original_tweet_id')->references('id')->on('twitter')->ondelete('cascade');
 		});
 	}
 

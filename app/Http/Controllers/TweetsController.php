@@ -87,6 +87,7 @@ class TweetsController extends Controller {
 		$repost->tweet_id=$tweet_id;
 		$repost->tweet=$post->tweet;
 		$repost->user_id=$user_id;
+		$repost->original_tweet_id = 0;
 		$repost->save();
 
 		$notification = new RepostNotification;

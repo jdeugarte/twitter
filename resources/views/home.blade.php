@@ -7,6 +7,16 @@
 				<div class="panel panel-success">
 					<div class="panel-heading text-center">Newsfeed</div>
 						<div class="panel-body">
+							<h3 class="text-center">Trending Topics</h3>
+
+								<center>
+									@for($i=0;$i<5;$i++)
+										{{"#".$words[$i]}}
+									@endfor
+								</center>
+
+							<hr class="divider">
+
 							@foreach ($user->tweets as $tweet)
 								@if(Auth::user()->image!=null)
 									<h3><img src="{!! '/images/'.$user->image->filePath !!}" width="30px;" height="20px;"><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>
@@ -45,6 +55,8 @@
 								@foreach (App\User::find($id)->tweets as $t)
 									@if($t->user->image!=null)
 										<h3><img src="{!! '/images/'.$t->user->image->filePath !!}" width="30px;" height="20px;"><a href={{"/".$t->user->username}}> {{$t->user->username}}</a> tweeted:</h3>
+									@else
+										<h3><img src="/profile.png" width="30px;" height="20px;"><a href={{"/".$t->user->username}}> {{$t->user->username}}</a> tweeted:</h3>												
 									@endif
 									<p>{{$t->tweet}}</p>
 									<p>{{$t->created_at}}</p>
