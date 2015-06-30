@@ -3,13 +3,13 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
-use App\Like;
+use App\User;
+use App\Tweet;
 use Auth;
-use App\Http\Requests\LikeRequest;
+use App\RepostNotification;
+use Illuminate\Http\Request;
 
-
-class LikesController extends Controller {
+class NotificationsController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -18,7 +18,8 @@ class LikesController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$notifications = RepostNotification::where('user_id',Auth::user()->id)->get()->reverse();
+		return view('notifications', compact('notifications'));
 	}
 
 	/**
@@ -36,18 +37,9 @@ class LikesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(LikeRequest $request)
+	public function store()
 	{
-		$input = $request->all();
-		$like = new Like($input);
-		$like->save();
-
-		$notification = new RepostNotification;
-		$notification->$like->user_id;
-		$notification->tweet_id=$like->tweet_id;
-		$notification->type="Like";
-		$notification->save();
-		return redirect()->back();
+		//
 	}
 
 	/**
@@ -89,11 +81,9 @@ class LikesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($user_id,$tweet_id)
+	public function destroy($id)
 	{
-		$like = Like::where('user_id',$user_id)->where('tweet_id',$tweet_id);
-		$like->delete();
-		return redirect()->back();
+		//
 	}
 
 }

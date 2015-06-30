@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Tweet;
 use Auth;
 use App\Http\Requests\TweetRequest;
+use App\RepostNotification;
+
 
 class TweetsController extends Controller {
 
@@ -57,6 +59,12 @@ class TweetsController extends Controller {
 		$repost->tweet=$post->tweet;
 		$repost->user_id=$user_id;
 		$repost->save();
+
+		$notification = new RepostNotification;
+		$notification->user_id=Tweet::find($tweet_id)->user->id;
+		$notification->tweet_id=$tweet_id;
+		$notification->type="Repost";
+		$notification->save();
 		return redirect('/'.Auth::user()->username);
 	}
 

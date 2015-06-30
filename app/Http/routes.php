@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('/notifications', 'NotificationsController@index');
 
 Route::get('/', 'HomeController@index');
 
