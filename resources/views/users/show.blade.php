@@ -39,10 +39,13 @@
 									<a href={{"/follow/".$user->id}} class="btn btn-success">Follow</a>
 								@endif
 							@endif
+							<hr class="divider">
 
 								@foreach ($user->tweets->reverse() as $tweet)
-									@if(Auth::user()->image!=null)
-										<h3><img src="{!! '/images/'.$user->image->filePath !!}" width="30px;" height="20px;"><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>
+									@if($tweet->user->image!=null)
+										<h3><img src="{!! '/images/'.$tweet->user->image->filePath !!}" width="30px;" height="20px;"><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>
+									@else
+										<h3><img src="/profile.png" width="30px;" height="20px;"><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>																					
 									@endif
 									<p>{{$tweet->tweet}}</p>
 									<p>{{$tweet->created_at}}</p>
