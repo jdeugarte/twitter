@@ -8,12 +8,16 @@
 					<div class="panel-heading text-center">Newsfeed</div>
 						<div class="panel-body">
 							<h3 class="text-center">Trending Topics</h3>
-
-								<center>
-									@for($i=0;$i<5;$i++)
-										{{"#".$words[$i]}}
-									@endfor
-								</center>
+								@if($words!=[])
+									<center>
+										@for($i=0;$i<count($words);$i++)
+											{{"#".$words[$i]}}
+											@if($i==4)
+												<?php $i=count($words)?>
+											@endif
+										@endfor
+									</center>
+								@endif
 
 							<hr class="divider">
 

@@ -39,24 +39,25 @@ class HomeController extends Controller {
 		$tweets = Tweet::all();
 		$words = [];
 		$aux = [];
-		foreach ($tweets as $tweet) {
-			$aux = (array) $tweet->tweet;
-			$aux = $aux[0];
-			$aux = str_replace(',','',$aux);
-			$aux = explode(' ',$aux);
-			$words = array_merge($aux,$words);
-		}
-		$words = array_count_values($words);
-		arsort($words);
-		$words = array_keys($words);
-		$aux = [];
-		for ($i=0; $i<sizeof($words); $i++){
-			if (strlen($words[$i])>3) {
-				$aux[] = $words[$i];
+		if ($tweets->count()!=0) {
+			foreach ($tweets as $tweet) {
+				$aux = (array) $tweet->tweet;
+				$aux = $aux[0];
+				$aux = str_replace(',','',$aux);
+				$aux = explode(' ',$aux);
+				$words = array_merge($aux,$words);
 			}
+			$words = array_count_values($words);
+			arsort($words);
+			$words = array_keys($words);
+			$aux = [];
+			for ($i=0; $i<sizeof($words); $i++){
+				if (strlen($words[$i])>3) {
+					$aux[] = $words[$i];
+				}
+			}	
 		}
 		$words = $aux;
-
 		$user = Auth::user();
 		return view('home',compact('user','words'));
 	}
