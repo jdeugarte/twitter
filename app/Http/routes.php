@@ -32,11 +32,13 @@ Route::get('/following', 'HomeController@following');
 
 Route::get('/followers', 'HomeController@followers');
 
-Route::get('imageUploadForm', 'ImageController@upload' );
+Route::get('/add_picture', 'ImageController@upload' );
 
-Route::post('imageUploadForm', 'ImageController@store' );
+Route::post('/add_picture', 'ImageController@store' );
 
-Route::get('showLists', 'ImageController@show' );
+Route::get('/search_results','HomeController@search_results');
+
+Route::post('/search', 'HomeController@search');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

@@ -44,6 +44,7 @@ class TweetsController extends Controller {
 	{
 		$input = $request->all();
 		$tweet = new Tweet($input);
+		$tweet->tweet_id = 0;
 		Auth::user()->tweets()->save($tweet);
 		return redirect()->back();
 	}

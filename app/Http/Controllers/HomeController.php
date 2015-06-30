@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Controller;
 use Auth;
+use Input;
 use App\User;
+use App\Tweet;
 
 class HomeController extends Controller {
 
@@ -46,6 +48,21 @@ class HomeController extends Controller {
 	public function followers(){
 		$user = Auth::user();
 		return view('followers',compact('user'));
+	}
+
+	public function search(){
+		$search = Input::get('search');
+		$users = null;
+		$tweets = null;
+		if ($search!="") {
+			$users = User::where('username','like','%'.$search.'%')->get();	
+			$tweets = Tweet::where('tweet','like','%'.$search.'%')->get();
+		}
+		return view('search_results',compact('users','tweets'));
+	}
+
+	public function search_results(){
+		return view('home');
 	}
 
 }

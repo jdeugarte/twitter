@@ -34,11 +34,22 @@
 				<a class="navbar-brand" href="/">Twitter</a>
 
 				@if (Auth::user())
-				<a class="navbar-brand" href={{"/".Auth::user()->username}}>Profile</a>
-				<a class="navbar-brand" href="/following">Following</a>
-				<a class="navbar-brand" href="/followers">Followers</a>
+					<a class="navbar-brand" href={{"/".Auth::user()->username}}>Profile</a>
+					<a class="navbar-brand" href="/following">Following</a>
+					<a class="navbar-brand" href="/followers">Followers</a>
 				@endif
 			</div>
+			
+			@if (Auth::user())
+				<form role="form" method="POST" action="{{ url('/search') }}" class="navbar-form navbar-left">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					<div class="form-group">
+						<input type="text" name="search" id="search" maxlength="140" placeholder="user or tweet">
+					</div>
+					<input type="submit" value="Search" name="post" class="btn btn-success">
+				</form>
+			@endif
+		
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
@@ -51,8 +62,13 @@
 						<li><a href="{{ url('/auth/register') }}">Register</a></li>
 					@else
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->username }} <span class="caret"></span></a>
+							@if(Auth::user()->image!=null)
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="{!! '/images/'.Auth::user()->image->filePath !!}" width="30px;" height="20px;">{{ Auth::user()->username }} <span class="caret"></span></a>
+							@else
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="/profile.png" width="30px;" height="20px;">{{ Auth::user()->username }} <span class="caret"></span></a>	
+							@endif
 							<ul class="dropdown-menu" role="menu">
+								<li><a href="/add_picture">Change Picture</a></li>
 								<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
 							</ul>
 						</li>

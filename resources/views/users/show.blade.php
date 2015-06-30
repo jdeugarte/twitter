@@ -1,6 +1,4 @@
 @extends('app')
-
-
 @section('content')
 <div id="fondo2">
 	<div class="container">
@@ -9,6 +7,8 @@
 				<div class="panel panel-success">
 					<div class="panel-heading text-center">My Profile</div>
 						<div class="panel-body">
+
+						<img class="img-responsive" src="{!! '/images/'.$user->image->filePath !!}" >
 
 						<h4 class="text-center">Posts: {{$user->tweets->count()}} &nbsp&nbsp&nbsp Followers: {{sizeof($user->followed_by())}} &nbsp&nbsp&nbsp Following: {{sizeof($user->following())}}</h4>
 						
@@ -38,7 +38,9 @@
 							@endif
 
 								@foreach ($user->tweets->reverse() as $tweet)
-									<h3><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>
+									@if(Auth::user()->image!=null)
+										<h3><img src="{!! '/images/'.$user->image->filePath !!}" width="30px;" height="20px;"><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>
+									@endif
 									<p>{{$tweet->tweet}}</p>
 									<p>{{$tweet->created_at}}</p>
 									<p>{{$tweet->likes()}} people like this and {{$tweet->repost_number()}} reposted this</p>

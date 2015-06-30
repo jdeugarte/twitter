@@ -8,7 +8,11 @@
 					<div class="panel-heading text-center">Newsfeed</div>
 						<div class="panel-body">
 							@foreach ($user->tweets as $tweet)
-								<h3><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>
+								@if(Auth::user()->image!=null)
+									<h3><img src="{!! '/images/'.$user->image->filePath !!}" width="30px;" height="20px;"><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>
+								@else
+									<h3><img src="/profile.png" width="50px;"><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>
+								@endif
 								<p>{{$tweet->tweet}}</p>
 								<p>{{$tweet->created_at}}</p>
 								<p>{{$tweet->likes()}} people like this and {{$tweet->repost_number()}} reposted this</p>
@@ -33,7 +37,9 @@
 
 							@foreach ($user->following() as $id)
 								@foreach (App\User::find($id)->tweets as $t)
-									<h3><a href={{"/".$t->user->username}}> {{$t->user->username}}</a> tweeted:</h3>
+									@if($t->user->image!=null)
+										<h3><img src="{!! '/images/'.$t->user->image->filePath !!}" width="30px;" height="20px;"><a href={{"/".$t->user->username}}> {{$t->user->username}}</a> tweeted:</h3>
+									@endif
 									<p>{{$t->tweet}}</p>
 									<p>{{$t->created_at}}</p>
 									<p>{{$t->likes()}} people like this and {{$t->repost_number()}} reposted this</p>
@@ -44,7 +50,6 @@
 											<input type="hidden" name="tweet_id" value={{ $t->id }}>
 											<input type="submit" value="like" class="btn btn-success">
 										</form>
-			
 									@else
 										<a class='btn btn-danger' href="/unlike/{{Auth::user()->id}}/{{$t->id}}">Unlike</a>
 									@endif

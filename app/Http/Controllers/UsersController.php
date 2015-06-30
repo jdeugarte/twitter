@@ -87,13 +87,13 @@ class UsersController extends Controller {
 	public function follow($user_id){
 		Auth::user()->follow($user_id);
 		$user = User::find($user_id);
-		return view('users.show', compact('user'));
+		return redirect('/'.$user->username);
 	}
 
 	public function unfollow($user_id){
 		Auth::user()->unfollow($user_id);
 		$user = User::find($user_id);
-		return view('users.show', compact('user'));
+		return redirect('/'.$user->username);
 	}
 
 }

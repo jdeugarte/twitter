@@ -19,7 +19,7 @@ class ImageController extends Controller {
 	 */
 	public function upload(){
 		// Redirect to image upload form
-		return view('imageupload');
+		return view('add_picture');
    	}
 
 	/**
@@ -28,26 +28,35 @@ class ImageController extends Controller {
 	 * @return Response
 	 */
 	public function store(ImageRequest $request){
-		// Store records process
 		$input = $request->all();
-		$image = new Image();
-		$this->validate($request, [
-            'title' => 'required',
-            'image' => 'required'
-        ]);
-        $image->title = $request->title;
-        $image->description = $request->description;
-        $image->user_id = Auth::user()->id;
-		if($request->hasFile('image')) {
-            $file = Input::file('image');
+
+		if(Auth::user()->image!=null) {
+			$image = Auth::user()->image;
+			$file = Input::file('image');
             $name = time(). '-' .$file->getClientOriginalName();
             $image->filePath = $name;
+			$file->move(public_path().'/images/', $name);
+		}else{
+			// Store records process
+			$image = new Image();
+			$this->validate($request, [
+	            'title' => 'required',
+	            'image' => 'required'
+	        ]);
+	        $image->title = $request->title;
+	        $image->description = $request->description;
+	        $image->user_id = Auth::user()->id;
+			if($request->hasFile('image')) {
+	            $file = Input::file('image');
+	            $name = time(). '-' .$file->getClientOriginalName();
+	            $image->filePath = $name;
 
-            $file->move(public_path().'/images/', $name);
+	            $file->move(public_path().'/images/', $name);
+	        }
         }
         $image->save();
         $user = Auth::user();
-        return view('home',compact('user'));
+        return redirect('/'.$user->username);
    	}
 
 	/**
@@ -55,10 +64,4 @@ class ImageController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function show(){
-		// Show lists of the images
-		$images = Image::all();
-        return view('showLists', compact('images'));
-    }
-
 }
