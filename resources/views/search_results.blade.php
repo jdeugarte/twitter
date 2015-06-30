@@ -10,7 +10,12 @@
 						<h3>Users:</h3>
 							@if ($users!=null)
 								@foreach ($users as $user)
-									<p><a href={{"/".$user->username}}>{{$user->username}}</a></p>
+
+									@if($user->image!=null)
+										<p><img src="{!! '/images/'.$user->image->filePath !!}" width="30px;" height="20px;"><a href={{"/".$user->username}}>{{$user->username}}</a></p>
+									@else
+										<p><img src="/profile.png" width="30px;" height="20px;"><a href={{"/".$user->username}}>{{$user->username}}</a></p>										
+									@endif
 								@endforeach
 							@else
 								<h1>No hay resultados</h1>
