@@ -62,6 +62,7 @@ class TweetsController extends Controller {
 		$notification = new RepostNotification;
 		$notification->user_id=Tweet::find($tweet_id)->user->id;
 		$notification->tweet_id=$tweet_id;
+		$notification->type="Repost";
 		$notification->save();
 		return redirect('/'.Auth::user()->username);
 	}

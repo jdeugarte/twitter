@@ -41,6 +41,12 @@ class LikesController extends Controller {
 		$input = $request->all();
 		$like = new Like($input);
 		$like->save();
+
+		$notification = new RepostNotification;
+		$notification->$like->user_id;
+		$notification->tweet_id=$like->tweet_id;
+		$notification->type="Like";
+		$notification->save();
 		return redirect()->back();
 	}
 

@@ -9,7 +9,14 @@
 						<div class="panel-body">
 							@foreach ($notifications as $notification)
 								<p>Tweet: {{App\Tweet::find($notification->tweet_id)->tweet}}</p>
-								<p>Retweeted by: <a href={{'/'.App\User::find($notification->user_id)->username}}>{{App\User::find($notification->user_id)->username}}</a></p>
+								<p>
+								@if($notification->type=="Repost")
+								Retweeted by: 
+								@elseif($notification->type=="Like")
+								Liked by:
+								@else
+								@endif
+								<a href={{'/'.App\User::find($notification->user_id)->username}}>{{App\User::find($notification->user_id)->username}}</a></p>
 								
 								<hr class="divider">
 							@endforeach
