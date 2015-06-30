@@ -21,12 +21,16 @@
 							@endif
 
 						<hr class="divider">
-
 						<h3>Tweets:</h3>
 						<hr class="divider">
+
 						@if ($tweets!=null)
 							@foreach ($tweets as $tweet)
-								<p><img src="{!! '/images/'.$tweet->user->image->filePath !!}" width="30px;" height="20px;"><a href={{"/".$tweet->user->username}}>{{$tweet->user->username}}</a> tweeted:</p>
+								@if($tweet->user->image!=null)
+									<p><img src="{!! '/images/'.$tweet->user->image->filePath !!}" width="30px;" height="20px;"><a href={{"/".$tweet->user->username}}>{{$tweet->user->username}}</a> tweeted:</p>
+								@else
+									<p><img src="/profile.png" width="30px;" height="20px;"><a href={{"/".$tweet->user->username}}>{{$tweet->user->username}}</a> tweeted:</p>
+								@endif								
 								<p>{{$tweet->tweet}}</p>
 								<p>{{$tweet->created_at}}</p>
 								<hr class="divider">

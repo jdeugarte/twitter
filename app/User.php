@@ -43,14 +43,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasOne('App\Image');
 	}
 
-	/*
+	
 	public function following_users_tweets(){
 		$users_ids = $this->following();
 		foreach ($user_ids_array as $id) {
 			$user = User::find($id);
 		}
 	}
-	*/
 
 	//Function to follow a user
 	public function follow($user_id){

@@ -25,10 +25,4 @@ class Tweet extends Model {
 	{
 		return Tweet::where('tweet_id', $this->id)->count();
 	}
-
-
-
-
-	// App\Like::where('tweet_id',1)->where('user_id',1);
-
 }
