@@ -8,8 +8,11 @@
 					<div class="panel-heading text-center">My Profile</div>
 						<div class="panel-body">
 
-						<img class="img-responsive" src="{!! '/images/'.$user->image->filePath !!}" >
-
+						@if($user->image!=null)
+							<img class="img-responsive" src="{!! '/images/'.$user->image->filePath !!}" >
+						@else
+							<img class="img-responsive" src="/profile.png" >
+						@endif
 						<h4 class="text-center">Posts: {{$user->tweets->count()}} &nbsp&nbsp&nbsp Followers: {{sizeof($user->followed_by())}} &nbsp&nbsp&nbsp Following: {{sizeof($user->following())}}</h4>
 						
 							@if(Auth::user()->username == $user->username)
