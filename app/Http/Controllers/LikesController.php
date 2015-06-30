@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Tweet;
 
 use Illuminate\Http\Request;
 use App\Like;
@@ -43,9 +44,11 @@ class LikesController extends Controller {
 		$like->save();
 
 		$notification = new RepostNotification;
-		$notification->user_id=$like->user_id;
+		$notification->user_id=Auth::user()->id;
+		$notification->my_user_id=Tweet::find($like->tweet_id)->user->id;
 		$notification->tweet_id=$like->tweet_id;
 		$notification->type="Like";
+		$notification->reply_id=0;
 		$notification->save();
 		return redirect()->back();
 	}

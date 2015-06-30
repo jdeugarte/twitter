@@ -10,6 +10,16 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('/tweet/{id}', 'TweetsController@show', array (
+	'uses'=>'TweetsController@show'
+	));
+
+Route::post('/reply_tweet/store', 'TweetsController@reply_store');
+
+
+Route::get('/reply/{tweet_id}', 'TweetsController@reply', array (
+	'uses'=>'TweetsController@reply'
+	));
 Route::get('/notifications', 'NotificationsController@index');
 
 Route::get('/', 'HomeController@index');

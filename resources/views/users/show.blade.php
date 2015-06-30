@@ -46,6 +46,11 @@
 									@endif
 									<p>{{$tweet->tweet}}</p>
 									<p>{{$tweet->created_at}}</p>
+									@if ($tweet->tweet_id>0)
+									<p>Reposted</p>
+									@elseif ($tweet->original_tweet_id>0)
+									<p>Reply for this <a href="/tweet/{{$tweet->original_tweet_id}}">post</a></p>
+									@endif
 									<p>{{$tweet->likes()}} people like this and {{$tweet->repost_number()}} reposted this</p>
 									@if($tweet->is_liked_by(Auth::user())==false)
 										<form class="form-horizontal" role="form" method="POST" action="{{ url('/like') }}" style="float:left; margin-right:5px;">
@@ -61,6 +66,7 @@
 									@if(Auth::user()->username != $user->username)
 										<a class='btn btn-primary' href="/repost/{{$tweet->id}}/{{Auth::user()->id}}">Repost</a>
 									@endif
+									<a class='btn btn-info'href="/reply;{{$tweet->id}}">Reply</a>
 									<br>
 									<hr class="divider">
 								@endforeach

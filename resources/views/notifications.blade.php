@@ -15,8 +15,12 @@
 								@elseif($notification->type=="Like")
 								Liked by:
 								@else
+								Replied by:
 								@endif
 								<a href={{'/'.App\User::find($notification->user_id)->username}}>{{App\User::find($notification->user_id)->username}}</a></p>
+								@if($notification->type=="Reply")
+								<p>with: {{App\Tweet::find($notification->reply_id)->tweet}}</p>
+								@endif
 								
 								<hr class="divider">
 							@endforeach

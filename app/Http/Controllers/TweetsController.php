@@ -5,7 +5,9 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Tweet;
+use App\User;
 use Auth;
+use Input;
 use App\Http\Requests\TweetRequest;
 use App\RepostNotification;
 
@@ -17,6 +19,13 @@ class TweetsController extends Controller {
 	 *
 	 * @return Response
 	 */
+	public function reply($tweet_id)
+	{
+		$tweet=Tweet::find($tweet_id);
+		return view('reply', compact('tweet'));
+
+	}
+
 	public function index()
 	{
 		//
@@ -47,8 +56,28 @@ class TweetsController extends Controller {
 		$input = $request->all();
 		$tweet = new Tweet($input);
 		$tweet->tweet_id = 0;
+		$tweet->original_tweet_id=0;
 		Auth::user()->tweets()->save($tweet);
 		return redirect()->back();
+	}
+
+	public function reply_store(TweetRequest $request)
+	{
+		$input = $request->all();
+		$tweet = new Tweet($input);
+		$tweet->tweet_id = 0;
+		$tweet->original_tweet_id=Input::get('original_tweet_id');
+		Auth::user()->tweets()->save($tweet);
+
+		$notification = new RepostNotification;
+		$notification->user_id=Auth::user()->id;
+		$notification->my_user_id=Tweet::find($tweet->original_tweet_id)->user->id;
+		$notification->tweet_id=$tweet->original_tweet_id;
+		$notification->type="Reply";
+		$notification->reply_id=$tweet->id;
+		$notification->save();
+
+		return redirect('/');
 	}
 
 	public function repost($tweet_id,$user_id)
@@ -61,8 +90,10 @@ class TweetsController extends Controller {
 		$repost->save();
 
 		$notification = new RepostNotification;
-		$notification->user_id=Tweet::find($tweet_id)->user->id;
+		$notification->user_id=Auth::user()->id;
+		$notification->my_user_id=Tweet::find($tweet_id)->user->id;
 		$notification->tweet_id=$tweet_id;
+		$notification->reply_id=0;
 		$notification->type="Repost";
 		$notification->save();
 		return redirect('/'.Auth::user()->username);
@@ -76,7 +107,10 @@ class TweetsController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$tweet= Tweet::find($id);
+		$user= User::find($tweet->user_id);
+		return view('tweets.show', compact('tweet','user'));
+
 	}
 
 	/**

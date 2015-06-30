@@ -18,7 +18,7 @@ class NotificationsController extends Controller {
 	 */
 	public function index()
 	{
-		$notifications = RepostNotification::where('user_id',Auth::user()->id)->get()->reverse();
+		$notifications = RepostNotification::where('my_user_id',Auth::user()->id)->get()->reverse();
 		return view('notifications', compact('notifications'));
 	}
 
