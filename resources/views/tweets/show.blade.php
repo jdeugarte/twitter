@@ -13,6 +13,7 @@
 									<h3><img src="/profile.png" width="50px;"><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>
 								@endif
 								<p>{{$tweet->tweet}}</p>
+								<p>{{$tweet->country()->name}}</p>
 								<p>{{$tweet->created_at}}</p>
 								<p>{{$tweet->likes()}} people like this and {{$tweet->repost_number()}} reposted this</p>
 								@if($tweet->is_liked_by(Auth::user())==false)

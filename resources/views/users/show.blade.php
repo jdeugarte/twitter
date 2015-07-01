@@ -23,6 +23,17 @@
 										<textarea name='tweet' id="tweet" maxlength="140" class="form-control" rows="3"></textarea>
 									</div>
 									<div class="car"></div>
+									<div class="col-md-6">
+										<select class="form-control" name="country_id">
+										@foreach (App\Country::all() as $country)
+											  <option 
+											  @if($country->id==$user->country_id)
+											  	selected
+											  @endif
+											  value="{{$country->id}}">{{$country->name}}</option>
+										@endforeach
+										</select>
+									</div>
 									<input type="submit" value="Post" name="post" class="btn btn-success">
 								</form>
 								<hr class="divider">
@@ -48,6 +59,7 @@
 										<h3><img src="/profile.png" width="30px;" height="20px;"><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>																					
 									@endif
 									<p>{{$tweet->tweet}}</p>
+									<p>{{$tweet->country()->name}}</p>
 									<p>{{$tweet->created_at}}</p>
 									@if ($tweet->tweet_id>0)
 									<p>Reposted</p>

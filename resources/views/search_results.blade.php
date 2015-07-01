@@ -16,6 +16,7 @@
 									@else
 										<p><img src="/profile.png" width="30px;" height="20px;"><a href={{"/".$user->username}}>{{$user->username}}</a></p>										
 									@endif
+									<p>{{$user->country()->name}}</p>
 								@endforeach
 							@else
 								<h1>No hay resultados</h1>
@@ -34,6 +35,7 @@
 									<p><img src="/profile.png" width="30px;" height="20px;"><a href={{"/".$tweet->user->username}}>{{$tweet->user->username}}</a> tweeted:</p>
 								@endif								
 								<p>{{$tweet->tweet}}</p>
+								<p>{{$tweet->country()->name}}</p>
 								<p>{{$tweet->created_at}}</p>
 								<hr class="divider">
 							@endforeach

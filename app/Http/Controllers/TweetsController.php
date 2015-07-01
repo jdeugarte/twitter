@@ -70,6 +70,7 @@ class TweetsController extends Controller {
 		$tweet = new Tweet($input);
 		$tweet->tweet_id = 0;
 		$tweet->original_tweet_id=Input::get('original_tweet_id');
+		$tweet->country_id=Input::get('country_id');
 		Auth::user()->tweets()->save($tweet);
 
 		$notification = new RepostNotification;

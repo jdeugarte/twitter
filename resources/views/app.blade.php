@@ -38,6 +38,7 @@
 				<a class="navbar-brand" href="/following">Following</a>
 				<a class="navbar-brand" href="/followers">Followers</a>
 				<a class="navbar-brand" href="/notifications">Notifications</a>
+				<a class="navbar-brand" href="/change_profile">Change Profile</a>
 
 				@endif
 			</div>
@@ -47,6 +48,11 @@
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="form-group">
 						<input type="text" name="search" id="search" maxlength="140" placeholder="user or tweet">
+						<select class="form-control" name="country_id">
+						@foreach (App\Country::all() as $country)
+							  <option value="{{$country->id}}">{{$country->name}}</option>
+						@endforeach
+						</select>
 					</div>
 					<input type="submit" value="Search" name="post" class="btn btn-success">
 				</form>

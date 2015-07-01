@@ -10,6 +10,13 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::post('/update_profile', 'UsersController@update');
+
+
+
+Route::get('/change_profile', 'UsersController@edit');
+
+
 Route::get('/tweet/{id}', 'TweetsController@show', array (
 	'uses'=>'TweetsController@show'
 	));

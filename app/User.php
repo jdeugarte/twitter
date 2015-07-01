@@ -24,7 +24,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name','username' ,'email', 'password'];
+	protected $fillable = ['name','username' ,'email', 'password','country_id'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -36,6 +36,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function tweets()
 	{
 		return $this->hasMany('App\Tweet');
+	}
+
+	public function country()
+	{
+		return Country::find($this->country_id);
 	}
 
 	public function image()

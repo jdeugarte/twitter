@@ -28,6 +28,19 @@
 							</div>
 						</div>
 
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Country</label>
+							<div class="col-md-6">
+								<select class="form-control" name="country_id">
+								@foreach (App\Country::all() as $country)
+									  <option value="{{$country->id}}">{{$country->name}}</option>
+								@endforeach
+								</select>
+							</div>
+						</div>
+
+
 						<div class="form-group">
 							<label class="col-md-4 control-label">Username</label>
 							<div class="col-md-6">

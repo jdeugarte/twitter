@@ -6,6 +6,8 @@ use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\User;
+use Input;
+
 
 class UsersController extends Controller {
 
@@ -63,9 +65,10 @@ class UsersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit()
 	{
-		//
+		$user = Auth::user();
+		return view('users.edit', compact('user'));
 	}
 
 	/**
@@ -74,9 +77,12 @@ class UsersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update()
 	{
-		//
+		$user=Auth::user();
+		$user->country_id= Input::get('country_id');
+		$user->save();
+		return redirect('/');
 	}
 
 	/**

@@ -28,6 +28,7 @@
 									<h3><img src="/profile.png" width="50px;"><a href={{"/".$tweet->user->username}}> {{$tweet->user->username}}</a> tweeted:</h3>
 								@endif
 								<p>{{$tweet->tweet}}</p>
+								<p>{{$tweet->country()->name}}</p>
 								<p>{{$tweet->created_at}}</p>
 								@if ($tweet->tweet_id>0)
 								<p>Reposted</p>
@@ -63,6 +64,7 @@
 										<h3><img src="/profile.png" width="30px;" height="20px;"><a href={{"/".$t->user->username}}> {{$t->user->username}}</a> tweeted:</h3>												
 									@endif
 									<p>{{$t->tweet}}</p>
+									<p>{{$t->country()->name}}</p>
 									<p>{{$t->created_at}}</p>
 									@if ($t->tweet_id>0)
 									<p>Reposted</p>

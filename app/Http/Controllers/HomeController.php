@@ -74,11 +74,17 @@ class HomeController extends Controller {
 
 	public function search(){
 		$search = Input::get('search');
+		$country_id=Input::get('country_id');
 		$users = null;
 		$tweets = null;
 		if ($search!="") {
-			$users = User::where('username','like','%'.$search.'%')->get();	
-			$tweets = Tweet::where('tweet','like','%'.$search.'%')->get();
+			$users = User::where('username','like','%'.$search.'%')->where('country_id',$country_id)->get();	
+			$tweets = Tweet::where('tweet','like','%'.$search.'%')->where('country_id',$country_id)->get();
+		}
+		else
+		{
+			$users = User::where('country_id',$country_id)->get();	
+			$tweets = Tweet::where('country_id',$country_id)->get();
 		}
 		return view('search_results',compact('users','tweets'));
 	}

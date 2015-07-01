@@ -16,6 +16,20 @@
 										<textarea name='tweet' id="tweet" maxlength="140" class="form-control" rows="3"></textarea>
 									</div>
 									<div class="car"></div>
+									<div class="col-md-6">
+										<select class="form-control" name="country_id">
+										@foreach (App\Country::all() as $country)
+											  <option 
+											  @if($country->id==Auth::user()->country_id)
+											  	selected
+											  @endif
+											  value="{{$country->id}}">{{$country->name}}</option>
+										@endforeach
+										</select>
+									</div>
+									<br>
+									<br>
+									
 									<input type="submit" value="Post" name="post" class="btn btn-success">
 								</form>
 								<hr class="divider">

@@ -4,11 +4,17 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Like;
 use App\RepostNotification;
+use App\Country;
 class Tweet extends Model {
-	protected $fillable = ['tweet'];
+	protected $fillable = ['tweet','country_id'];
 	public function user()
 	{
 		return $this->belongsTo('App\User');
+	}
+
+	public function country()
+	{
+		return Country::find($this->country_id);
 	}
 
 	public function likes()

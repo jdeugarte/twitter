@@ -17,6 +17,6 @@ class TweetRequest extends Request {
 	 */
 	public function rules()
 	{
-		return ['tweet' => 'required'];
+		return ['tweet' => 'required','country_id'=>'required'];
 	}
 }
